@@ -1,0 +1,101 @@
+transaction_id,ground_truth_status,ground_truth_reason,expected_exception_category
+TXN9001,REVIEW,Requires human review: DUPLICATE_TRANSACTION,DUPLICATE_TRANSACTION
+TXN9002,MATCHED,Exact match or verified fee/refund adjustments,FEE_ADJUSTED
+TXN9003,EXCEPTION,Unresolved exception: AMOUNT_MISMATCH,AMOUNT_MISMATCH
+TXN9004,MATCHED,Exact match or verified fee/refund adjustments,FEE_ADJUSTED
+TXN9005,MATCHED,Exact match or verified fee/refund adjustments,FEE_ADJUSTED
+TXN9006,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9007,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9008,EXCEPTION,Unresolved exception: MISSING_SETTLEMENT,MISSING_SETTLEMENT
+TXN9009,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9010,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9011,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9012,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9013,EXCEPTION,Unresolved exception: AMOUNT_MISMATCH,AMOUNT_MISMATCH
+TXN9014,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9015,REVIEW,Requires human review: PARTIAL_SETTLEMENT,PARTIAL_SETTLEMENT
+TXN9016,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9017,EXCEPTION,Unresolved exception: MISSING_SETTLEMENT,MISSING_SETTLEMENT
+TXN9018,EXCEPTION,Unresolved exception: MISSING_SETTLEMENT,MISSING_SETTLEMENT
+TXN9019,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9020,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9021,MATCHED,Exact match or verified fee/refund adjustments,REFUND_ADJUSTED
+TXN9022,REVIEW,Requires human review: PARTIAL_SETTLEMENT,PARTIAL_SETTLEMENT
+TXN9023,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9024,MATCHED,Exact match or verified fee/refund adjustments,FEE_ADJUSTED
+TXN9025,EXCEPTION,Unresolved exception: AMOUNT_MISMATCH,AMOUNT_MISMATCH
+TXN9026,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9027,MATCHED,Exact match or verified fee/refund adjustments,FEE_ADJUSTED
+TXN9028,EXCEPTION,Unresolved exception: UNKNOWN_TRANSACTION,UNKNOWN_TRANSACTION
+TXN9029,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9030,EXCEPTION,Unresolved exception: AMOUNT_MISMATCH,AMOUNT_MISMATCH
+TXN9031,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9032,MATCHED,Exact match or verified fee/refund adjustments,FEE_ADJUSTED
+TXN9033,REVIEW,Requires human review: DUPLICATE_TRANSACTION,DUPLICATE_TRANSACTION
+TXN9034,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9035,EXCEPTION,Unresolved exception: UNKNOWN_TRANSACTION,UNKNOWN_TRANSACTION
+TXN9036,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9037,EXCEPTION,Unresolved exception: AMOUNT_MISMATCH,AMOUNT_MISMATCH
+TXN9038,EXCEPTION,Unresolved exception: AMOUNT_MISMATCH,AMOUNT_MISMATCH
+TXN9039,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9040,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9041,MATCHED,Exact match or verified fee/refund adjustments,FEE_ADJUSTED
+TXN9042,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9043,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9044,EXCEPTION,Unresolved exception: UNKNOWN_TRANSACTION,UNKNOWN_TRANSACTION
+TXN9045,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9046,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9047,EXCEPTION,Unresolved exception: MISSING_SETTLEMENT,MISSING_SETTLEMENT
+TXN9048,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9049,MATCHED,Exact match or verified fee/refund adjustments,REFUND_ADJUSTED
+TXN9050,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9051,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9052,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9053,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9054,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9055,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9056,EXCEPTION,Unresolved exception: MISSING_SETTLEMENT,MISSING_SETTLEMENT
+TXN9057,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9058,MATCHED,Exact match or verified fee/refund adjustments,REFUND_ADJUSTED
+TXN9059,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9060,REVIEW,Requires human review: PARTIAL_SETTLEMENT,PARTIAL_SETTLEMENT
+TXN9061,MATCHED,Exact match or verified fee/refund adjustments,REFUND_ADJUSTED
+TXN9062,REVIEW,Requires human review: DATE_MISMATCH,DATE_MISMATCH
+TXN9063,MATCHED,Exact match or verified fee/refund adjustments,FEE_ADJUSTED
+TXN9064,MATCHED,Exact match or verified fee/refund adjustments,FEE_ADJUSTED
+TXN9065,MATCHED,Exact match or verified fee/refund adjustments,FEE_ADJUSTED
+TXN9066,EXCEPTION,Unresolved exception: AMOUNT_MISMATCH,AMOUNT_MISMATCH
+TXN9067,MATCHED,Exact match or verified fee/refund adjustments,FEE_ADJUSTED
+TXN9068,EXCEPTION,Unresolved exception: AMOUNT_MISMATCH,AMOUNT_MISMATCH
+TXN9069,MATCHED,Exact match or verified fee/refund adjustments,REFUND_ADJUSTED
+TXN9070,REVIEW,Requires human review: DATE_MISMATCH,DATE_MISMATCH
+TXN9071,EXCEPTION,Unresolved exception: MISSING_SETTLEMENT,MISSING_SETTLEMENT
+TXN9072,MATCHED,Exact match or verified fee/refund adjustments,FEE_ADJUSTED
+TXN9073,MATCHED,Exact match or verified fee/refund adjustments,REFUND_ADJUSTED
+TXN9074,MATCHED,Exact match or verified fee/refund adjustments,FEE_ADJUSTED
+TXN9075,REVIEW,Requires human review: DATE_MISMATCH,DATE_MISMATCH
+TXN9076,MATCHED,Exact match or verified fee/refund adjustments,REFUND_ADJUSTED
+TXN9077,EXCEPTION,Unresolved exception: MISSING_SETTLEMENT,MISSING_SETTLEMENT
+TXN9078,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9079,EXCEPTION,Unresolved exception: UNKNOWN_TRANSACTION,UNKNOWN_TRANSACTION
+TXN9080,MATCHED,Exact match or verified fee/refund adjustments,REFUND_ADJUSTED
+TXN9081,MATCHED,Exact match or verified fee/refund adjustments,REFUND_ADJUSTED
+TXN9082,REVIEW,Requires human review: DUPLICATE_TRANSACTION,DUPLICATE_TRANSACTION
+TXN9083,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9084,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9085,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9086,MATCHED,Exact match or verified fee/refund adjustments,FEE_ADJUSTED
+TXN9087,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9088,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9089,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9090,REVIEW,Requires human review: DUPLICATE_TRANSACTION,DUPLICATE_TRANSACTION
+TXN9091,REVIEW,Requires human review: PARTIAL_SETTLEMENT,PARTIAL_SETTLEMENT
+TXN9092,EXCEPTION,Unresolved exception: AMOUNT_MISMATCH,AMOUNT_MISMATCH
+TXN9093,REVIEW,Requires human review: DUPLICATE_TRANSACTION,DUPLICATE_TRANSACTION
+TXN9094,EXCEPTION,Unresolved exception: MISSING_SETTLEMENT,MISSING_SETTLEMENT
+TXN9095,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9096,MATCHED,Exact match or verified fee/refund adjustments,REFUND_ADJUSTED
+TXN9097,EXCEPTION,Unresolved exception: AMOUNT_MISMATCH,AMOUNT_MISMATCH
+TXN9098,MATCHED,Exact match or verified fee/refund adjustments,EXACT_MATCH
+TXN9099,REVIEW,Requires human review: PARTIAL_SETTLEMENT,PARTIAL_SETTLEMENT
+TXN9100,MATCHED,Exact match or verified fee/refund adjustments,FEE_ADJUSTED
