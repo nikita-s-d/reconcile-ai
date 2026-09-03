@@ -1,0 +1,317 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  ANALYST
+  VIEWER
+}
+
+enum BatchStatus {
+  UPLOADED
+  VALIDATING
+  READY
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum ResultStatus {
+  MATCHED
+  REVIEW
+  EXCEPTION
+}
+
+enum ExceptionCategory {
+  AMOUNT_MISMATCH
+  MISSING_SETTLEMENT
+  DUPLICATE_TRANSACTION
+  PARTIAL_SETTLEMENT
+  UNKNOWN_TRANSACTION
+  DATE_MISMATCH
+  OTHER
+}
+
+enum Severity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ExceptionStatus {
+  OPEN
+  RESOLVED
+}
+
+model User {
+  id           String     @id @default(uuid())
+  name         String
+  email        String     @unique
+  passwordHash String
+  role         Role       @default(ANALYST)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  auditLogs    AuditLog[]
+}
+
+model DatasetBatch {
+  id           String              @id @default(uuid())
+  name         String
+  description  String?
+  recordCount  Int                 @default(0)
+  status       BatchStatus         @default(UPLOADED)
+  uploadedAt   DateTime            @default(now())
+  processedAt  DateTime?
+  createdAt    DateTime            @default(now())
+  orders       Order[]
+  payments     Payment[]
+  settlements  Settlement[]
+  bankTxns     BankTransaction[]
+  refunds      Refund[]
+  runs         ReconciliationRun[]
+}
+
+model Order {
+  id          String       @id @default(uuid())
+  batchId     String
+  orderId     String
+  customerId  String?
+  orderDate   String
+  orderAmount Float
+  currency    String       @default("INR")
+  paymentId   String?
+  orderStatus String       @default("COMPLETED")
+  batch       DatasetBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([paymentId])
+  @@index([batchId])
+}
+
+model Payment {
+  id            String       @id @default(uuid())
+  batchId       String
+  paymentId     String
+  orderId       String?
+  transactionId String
+  paymentDate   String
+  paymentTime   String?
+  amount        Float
+  paymentStatus String       @default("CAPTURED")
+  paymentMethod String       @default("UPI")
+  batch         DatasetBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+
+  @@index([transactionId])
+  @@index([paymentId])
+  @@index([orderId])
+  @@index([batchId])
+}
+
+model Settlement {
+  id               String       @id @default(uuid())
+  batchId          String
+  settlementId     String
+  transactionId    String
+  settlementDate   String
+  grossAmount      Float
+  fee              Float        @default(0.0)
+  tax              Float        @default(0.0)
+  netAmount        Float
+  settlementStatus String       @default("SETTLED")
+  batch            DatasetBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+
+  @@index([settlementId])
+  @@index([transactionId])
+  @@index([batchId])
+}
+
+model BankTransaction {
+  id                String       @id @default(uuid())
+  batchId           String
+  bankTransactionId String
+  settlementId      String?
+  transactionDate   String
+  transactionTime   String?
+  reference         String?
+  creditAmount      Float
+  bankStatus        String       @default("CREDITED")
+  batch             DatasetBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+
+  @@index([bankTransactionId])
+  @@index([settlementId])
+  @@index([reference])
+  @@index([batchId])
+}
+
+model Refund {
+  id            String       @id @default(uuid())
+  batchId       String
+  refundId      String
+  transactionId String
+  refundDate    String
+  refundAmount  Float
+  refundStatus  String       @default("PROCESSED")
+  refundReason  String?
+  batch         DatasetBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+
+  @@index([refundId])
+  @@index([transactionId])
+  @@index([batchId])
+}
+
+model ReconciliationRun {
+  id               String                 @id @default(uuid())
+  batchId          String
+  startedAt        DateTime               @default(now())
+  completedAt      DateTime?
+  totalRecords     Int                    @default(0)
+  matchedCount     Int                    @default(0)
+  reviewCount      Int                    @default(0)
+  exceptionCount   Int                    @default(0)
+  matchRate        Float                  @default(0.0)
+  accuracy         Float?
+  precision        Float?
+  recall           Float?
+  f1Score          Float?
+  processingTimeMs Float                  @default(0.0)
+  throughput       Float                  @default(0.0)
+  status           String                 @default("COMPLETED")
+  batch            DatasetBatch           @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  results          ReconciliationResult[]
+  evaluations      EvaluationResult[]
+
+  @@index([batchId])
+}
+
+model ReconciliationResult {
+  id                       String            @id @default(uuid())
+  runId                    String
+  transactionId            String
+  orderId                  String?
+  status                   ResultStatus
+  confidence               Float
+  reason                   String
+  amountDifference         Float             @default(0.0)
+  dateDifference           Int               @default(0)
+  matchedPaymentId         String?
+  matchedSettlementId      String?
+  matchedBankTransactionId String?
+  evidence                 Json?
+  createdAt                DateTime          @default(now())
+  updatedAt                DateTime          @updatedAt
+  run                      ReconciliationRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+  exception                Exception?
+
+  @@index([runId])
+  @@index([transactionId])
+  @@index([status])
+}
+
+model Exception {
+  id             String               @id @default(uuid())
+  resultId       String               @unique
+  transactionId  String
+  category       ExceptionCategory    @default(OTHER)
+  description    String
+  expectedValue  Float?
+  actualValue    Float?
+  severity       Severity             @default(MEDIUM)
+  status         ExceptionStatus      @default(OPEN)
+  resolvedBy     String?
+  resolutionNote String?
+  resolvedAt     DateTime?
+  createdAt      DateTime             @default(now())
+  result         ReconciliationResult @relation(fields: [resultId], references: [id], onDelete: Cascade)
+
+  @@index([transactionId])
+  @@index([category])
+  @@index([status])
+}
+
+model AuditLog {
+  id            String   @id @default(uuid())
+  timestamp     DateTime @default(now())
+  userId        String?
+  action        String
+  entity        String
+  entityId      String?
+  previousValue String?
+  newValue      String?
+  reason        String?
+  metadata      Json?
+  user          User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([timestamp])
+  @@index([action])
+}
+
+model Settings {
+  id                   String   @id @default("default")
+  matchedThreshold     Float    @default(95.0)
+  reviewThreshold      Float    @default(80.0)
+  settlementWindowDays Int      @default(2)
+  updatedAt            DateTime @updatedAt
+}
+
+model GroundTruthDataset {
+  id          String              @id @default(uuid())
+  filename    String              @default("ground_truth.csv")
+  recordCount Int                 @default(0)
+  status      String              @default("ACTIVE")
+  uploadedBy  String?
+  createdAt   DateTime            @default(now())
+  records     GroundTruthRecord[]
+  evaluations EvaluationResult[]
+
+  @@index([createdAt])
+  @@index([status])
+}
+
+model GroundTruthRecord {
+  id                         String             @id @default(uuid())
+  datasetId                  String
+  transactionId              String
+  groundTruthStatus          String
+  groundTruthReason          String?
+  expectedExceptionCategory String?
+  createdAt                  DateTime           @default(now())
+  dataset                    GroundTruthDataset @relation(fields: [datasetId], references: [id], onDelete: Cascade)
+
+  @@unique([datasetId, transactionId])
+  @@index([transactionId])
+  @@index([datasetId])
+}
+
+model EvaluationResult {
+  id                      String             @id @default(uuid())
+  runId                   String
+  groundTruthDatasetId   String
+  totalGtRecords          Int                @default(0)
+  matchedEvalRecords      Int                @default(0)
+  unmatchedGtRecords      Int                @default(0)
+  missingPredictionsCount Int                @default(0)
+  correctPredictions      Int                @default(0)
+  incorrectPredictions    Int                @default(0)
+  accuracy                Float
+  precisionMacro          Float
+  recallMacro             Float
+  f1Macro                 Float
+  f1Weighted              Float
+  perClassMetrics         Json
+  confusionMatrix         Json
+  createdBy               String?
+  createdAt               DateTime           @default(now())
+  run                     ReconciliationRun  @relation(fields: [runId], references: [id], onDelete: Cascade)
+  groundTruthDataset      GroundTruthDataset @relation(fields: [groundTruthDatasetId], references: [id], onDelete: Cascade)
+
+  @@index([runId])
+  @@index([groundTruthDatasetId])
+  @@index([createdAt])
+}
